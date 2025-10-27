@@ -26,5 +26,6 @@ private:
 
 private slots:
     void doPushBtn();
+    void doTextcolor();
 };
 #endif // CBUILTINDLG_H
