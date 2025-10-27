@@ -6,6 +6,8 @@
 #include<QColorDialog>
 #include<QErrorMessage>
 #include<QFileDialog>
+#include<QFontDialog>
+#include<QInputDialog>
 cbuiltindlg::cbuiltindlg(QWidget *parent)
     : QDialog(parent)
 {
@@ -19,7 +21,7 @@ cbuiltindlg::cbuiltindlg(QWidget *parent)
     pagePushBtn     = new QPushButton (QStringLiteral("頁面設定對話盒"));
     progressPushBtn = new QPushButton (QStringLiteral("進度對話盒"));
     printPushBtn    = new QPushButton (QStringLiteral("列印對話盒"));
-    colorPushBtn2    = new QPushButton (QStringLiteral("前景顏色對話盒"));
+    colorPushBtn2    = new QPushButton (QStringLiteral("設定文字顏色對話盒"));
 
     gridLayout->addWidget (colorPushBtn,0,0,1,1);
     gridLayout->addWidget (errorPushBtn,0,1,1,1);
@@ -75,6 +77,41 @@ void cbuiltindlg:: doPushBtn()
                                                                      ";;XML檔(*.xml)"));
          displayTextEdit->setText(fileName);
     }
-
+    if (btn == fontPushBtn)
+    {
+    bool ok;
+    const QFont& font = QFontDialog::getFont(&ok,
+                                           displayTextEdit->font(),
+                                           this,
+                                           QStringLiteral("字體對話盒"));
+    if (ok) displayTextEdit->setFont(font);
+    }
+if (btn == inputPushBtn)
+    {
+    bool ok;
+    QString text = QInputDialog::getText(this,
+                                                QStringLiteral("輸入對話盒"),
+                                                QStringLiteral("輸入文字"),
+    QLineEdit:: Normal,
+    QDir::home().dirName(), &ok
+    );
+    if (ok && !text.isEmpty()) displayTextEdit->setText(text);
+    }
+it (btn == progressPushBtn)
+QProgressDialog progress (QStringLiteral("正在複製檔案..."),
+QStringLiteral("取消”),0,10000,this);
+progress.setWindowTitle (QStringLiteral(
+"油度對話方塊”));
+progress.show();
+for (int i = 0 i<10000; i++)
+progress.setValue(i)
+;
+qApp->processEvents():
+If (progress.wasCanceled())
+break:
+qDebug() <<
+17
+1
+progress.setValue(10000);
 }
 cbuiltindlg::~cbuiltindlg() {}
